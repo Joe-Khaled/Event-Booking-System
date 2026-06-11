@@ -6,12 +6,17 @@ import { TicketModule } from './modules/ticket/ticket.module';
 import { UserModule } from './modules/user/user.module';
 import { VenueModule } from './modules/venue/venue.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { AuthModule } from './modules/auth/auth.module';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
   imports: [
+    ConfigModule.forRoot({
+      isGlobal: true,
+    }),
     TypeOrmModule.forRoot({
       type: 'postgres',
-      host: 'localhost',
+      host: 'postgres',
       port: 5432,
       username: 'postgres',
       password: 'password',
@@ -19,7 +24,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
       synchronize: true,
       autoLoadEntities: true,
     }),
-    EventModule, PaymentModule, ReservationModule, TicketModule, UserModule, VenueModule
+    EventModule, PaymentModule, ReservationModule, TicketModule, UserModule, VenueModule, AuthModule
   ]
 })
 export class AppModule { }

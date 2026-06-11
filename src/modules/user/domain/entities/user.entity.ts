@@ -1,34 +1,27 @@
 export class User {
-    constructor(
-        public readonly id: string,
-        public readonly name: string,
-        public readonly email: string,
-        public readonly passwordHash: string,
-        public readonly role: string,
-        public readonly status: string,
-        public readonly createdAt: Date,
-        public readonly updatedAt: Date 
-    ) {}
+    id: string;
+    name: string;
+    email: string;
+    passwordHash: string;
+    role: string;
+    status: string;
+    createdAt: Date;
+    updatedAt: Date;
+    constructor(data?: Partial<User>) { 
+        Object.assign(this, data);
+    }
 
     static create(params:{
-    id: string,
-    name: string,
-    email: string,
-    passwordHash: string,
-    role: string,
-    status: string,
-    createdAt: Date,
-    updatedAt: Date 
-}): User {
-        return new User(
-            params.id,
-            params.name,
-            params.email,
-            params.passwordHash,
-            params.role,
-            params.status,
-            params.createdAt,
-            params.updatedAt
-        );
+        name: string,
+        email: string,
+        passwordHash: string,
+        role: string,
+        status: string,
+        createdAt: Date,
+        updatedAt: Date
+    }): User {
+        params.email = params.email.toLowerCase();
+        params.status = params.status || 'active';
+        return new User(params);
     }
 }

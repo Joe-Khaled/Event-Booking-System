@@ -11,7 +11,7 @@ export class CreateUserUseCase {
         private readonly userRepository: IUserRepository,
         private readonly passwordHasher: IPasswordHasher
     ){}
-    async execute(request: createUserRequest){
+    async execute(request: createUserRequest):Promise<UserResponseModel> {
         const existingUser = await this.userRepository.findByEmail(request.email);
         if(existingUser){
             throw new Error("Email already in use");
@@ -19,18 +19,16 @@ export class CreateUserUseCase {
         const passwordHash = await this.passwordHasher.hash(request.password);
 
         const user = User.create({
-            id: crypto.randomUUID(),
             name: request.name,
             email: request.email,
             passwordHash: passwordHash,
-            role: "user",
+            role: request.role,
             status: "active",
             createdAt: new Date(),
             updatedAt: new Date()
         });
         await this.userRepository.save(user);
         const newUser = new UserResponseModel({
-            id: user.id,
             name: user.name,
             email: user.email,
             role: user.role,

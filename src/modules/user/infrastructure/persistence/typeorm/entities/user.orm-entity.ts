@@ -3,28 +3,28 @@ import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateCol
 @Entity("users")
 export class UserOrmEntity {
     @PrimaryGeneratedColumn('uuid')
-    id!: string;
+    id: string;
 
     @Column()
-    name!: string;
+    name: string;
 
     @Column({
         unique: true
     })
-    email!: string;
+    email: string;
 
     @Column()
-    passwordHash!: string;
+    passwordHash: string;
 
     @Column()
-    role!: string;
+    role: string;
 
     @Column()
-    status!: string;
+    status: string;
 
     @CreateDateColumn({ type: 'timestamp with time zone', default: () => 'CURRENT_TIMESTAMP' })
-    createdAt!: Date;
+    createdAt: Date;
 
     @UpdateDateColumn({ type: 'timestamp with time zone', default: () => 'CURRENT_TIMESTAMP' })
-    updatedAt!: Date;
+    updatedAt: Date;
 }
