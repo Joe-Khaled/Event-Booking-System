@@ -41,7 +41,7 @@ services:
       - event-booking-network
 volumes:
   postgres_nodejs_data:
+  webroot:
 networks:
   event-booking-network:
     driver: bridge
-  
